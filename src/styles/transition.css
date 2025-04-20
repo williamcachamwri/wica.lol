@@ -1,0 +1,443 @@
+/* Thêm vào global.css hoặc tạo file riêng */
+.transition-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  isolation: isolate;
+}
+
+.transition-content {
+  width: 100%;
+  min-height: 100vh;
+  will-change: transform, opacity, filter;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Đảm bảo content luôn hiển thị */
+  opacity: 1;
+  visibility: visible;
+}
+
+.initial-load {
+  animation: fadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    filter: blur(10px);
+  }
+  50% {
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Ultra-smooth page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  filter: blur(10px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.98);
+  filter: blur(10px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Enhanced particle effects */
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8) rotate(0deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  25% {
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+  50% {
+    transform: translateY(-40px) translateX(20px) scale(1.2) rotate(180deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  75% {
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+  100% {
+    transform: translateY(-80px) translateX(40px) scale(0.8) rotate(360deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+/* Enhanced shine effect */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
+/* Cosmic energy field effect */
+@keyframes cosmicPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+    filter: blur(20px);
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+    filter: blur(10px);
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+    filter: blur(20px);
+  }
+}
+
+/* Dimensional rift effect */
+@keyframes dimensionalRift {
+  0% {
+    transform: scaleX(0) scaleY(0.005);
+    opacity: 0;
+    filter: blur(5px);
+  }
+  50% {
+    transform: scaleX(1) scaleY(0.005);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: scaleX(0) scaleY(0.005);
+    opacity: 0;
+    filter: blur(5px);
+  }
+}
+
+/* Energy wave effect */
+@keyframes energyWave {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  10% {
+    opacity: 0.8;
+    filter: blur(4px);
+  }
+  90% {
+    opacity: 0.8;
+    filter: blur(4px);
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+/* Particle burst effect */
+@keyframes particleBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(
+      calc(-50% + var(--x-offset, 0px)),
+      calc(-50% + var(--y-offset, 0px))
+    ) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Glow dot pulsing */
+@keyframes glowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+    filter: blur(5px);
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+    filter: blur(3px);
+  }
+}
+
+/* Overlay transition effect */
+.overlay-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0), rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0));
+  opacity: 0;
+  backdrop-filter: blur(12px);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.overlay-transition.forward {
+  transform-origin: left center;
+}
+
+.overlay-transition.backward {
+  transform-origin: right center;
+}
+
+.overlay-transition.active {
+  animation: overlayReveal 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes overlayReveal {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+/* Energy field effect */
+.energy-field {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.2), transparent 70%);
+  opacity: 0;
+  filter: blur(40px);
+}
+
+.energy-field.active {
+  animation: cosmicPulse 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Energy ray effect */
+.energy-ray {
+  position: fixed;
+  height: 1px;
+  left: 0;
+  right: 0;
+  z-index: 9991;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.8), transparent);
+  opacity: 0;
+  filter: blur(1px);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+.energy-ray.active {
+  animation: energyWave 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Dimensional rift effect */
+.dimensional-rift {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(16, 185, 129, 0.05);
+  box-shadow: 0 0 50px rgba(16, 185, 129, 0.3);
+  transform-origin: center;
+  z-index: 9995;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+.dimensional-rift.active {
+  animation: dimensionalRift 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Particle container */
+.particle-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Glow dot */
+.glow-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.8), rgba(16, 185, 129, 0) 70%);
+  filter: blur(5px);
+  opacity: 0;
+}
+
+.glow-dot.active {
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+/* Fix cho lỗi mất content khi chuyển từ projects về home */
+.content-loaded .transition-content,
+.transition-content {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* Đảm bảo content luôn hiển thị sau khi animation kết thúc */
+.transition-content {
+  min-height: 100vh;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: block !important;
+}
+
+/* Đảm bảo scroll position được reset */
+html, body {
+  scroll-behavior: smooth;
+  overflow-anchor: none;
+}
+
+/* Đảm bảo không có overflow ẩn nào gây ra vấn đề */
+.content-fade-mask {
+  overflow: visible;
+  min-height: 100vh;
+}
+
+/* Fix đặc biệt cho trang home */
+[data-pathname="/"] .transition-content,
+[data-pathname="/projects"] .transition-content {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  display: block !important;
+}
+
+/* Đảm bảo animation không ảnh hưởng đến việc hiển thị content */
+.transition-content * {
+  backface-visibility: hidden;
+}
+
+/* Đảm bảo content hiển thị ngay sau khi animation kết thúc */
+@keyframes forceVisible {
+  0%, 100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Áp dụng animation forceVisible cho content sau khi chuyển trang */
+.transition-complete .transition-content {
+  animation: forceVisible 0.1s forwards;
+}
+
+/* Đảm bảo không có hiệu ứng blur nào ảnh hưởng đến content */
+.transition-content {
+  filter: none !important;
+}
+
+/* Đảm bảo content không bị ẩn bởi các hiệu ứng khác */
+.transition-content {
+  z-index: 5;
+  position: relative;
+}
+
+/* Đảm bảo content hiển thị ngay lập tức khi chuyển từ projects về home */
+body[data-last-route="/projects"] .transition-content {
+  transition: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Thêm vào file transition.css hiện có */
+
+/* Smooth scrolling styles */
+html.has-smooth-scroll {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+body.has-smooth-scroll {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+/* Cosmic scroll effects */
+@keyframes cosmicGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.7);
+  }
+}
+
+.cosmic-glow {
+  animation: cosmicGlow 3s infinite;
+}
+
+/* Optimize performance */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Optimize GPU rendering */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

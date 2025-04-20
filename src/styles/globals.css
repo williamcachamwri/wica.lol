@@ -1,0 +1,1084 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: black;
+  color: white;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::after {
+  content: "";
+  background-image: url("image.png");
+  height: 300%;
+  width: 300%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  animation: fadeInGrain 2s ease forwards, animateGrain 8s steps(10) infinite;
+}
+
+@keyframes fadeInGrain {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.08;
+  }
+}
+
+@keyframes animateGrain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, -20%);
+  }
+  30% {
+    transform: translate(-5%, -10%);
+  }
+  40% {
+    transform: translate(-15%, -20%);
+  }
+  50% {
+    transform: translate(-5%, -10%);
+  }
+  60% {
+    transform: translate(-15%, -20%);
+  }
+  70% {
+    transform: translate(-5%, -10%);
+  }
+  80% {
+    transform: translate(-15%, -20%);
+  }
+  90% {
+    transform: translate(-5%, -10%);
+  }
+  100% {
+    transform: translate(-15%, -20%);
+  }
+}
+
+.transition-wrapper {
+  transition-property: opacity, transform, filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  will-change: opacity, filter;
+}
+
+.page-transtion {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.content-fade-mask {
+  padding-bottom: 90px;
+}
+
+.initial-load {
+  opacity: 0;
+  animation: fadeInPage 10s ease-out forwards 3s;
+}
+
+@keyframes fadeInPage {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Show scrollbar only for code blocks - Ultra enhanced styling */
+.code-block-container::-webkit-scrollbar {
+  display: block;
+  height: 8px;
+  width: 8px;
+  cursor: pointer;
+}
+
+.code-block-container::-webkit-scrollbar-track {
+  background: linear-gradient(to right, rgba(26, 27, 36, 0.5), rgba(40, 42, 54, 0.8), rgba(26, 27, 36, 0.5));
+  border-radius: 4px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.code-block-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, #8b6cef, #bd93f9, #8b6cef);
+  border-radius: 4px;
+  border: 1px solid rgba(68, 71, 90, 0.5);
+  box-shadow: 0 0 8px rgba(189, 147, 249, 0.4);
+  transition: all 0.3s ease;
+}
+
+.code-block-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to right, #ff56c1, #ff79c6, #ff56c1);
+  box-shadow: 0 0 12px rgba(255, 121, 198, 0.6);
+}
+
+.code-block-container::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.code-block-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 1.5rem 0;
+}
+
+
+.code-block-container:hover {
+  scrollbar-color: #ff79c6 #282a36;
+}
+
+.code-block-container pre {
+  background: linear-gradient(145deg, #282a36, #1a1b24) !important;
+  border-radius: 10px;
+  padding: 1.2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(68, 71, 90, 0.6);
+  border: 1px solid rgba(68, 71, 90, 0.6);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.code-block-container pre:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(189, 147, 249, 0.3);
+  transform: translateY(-2px);
+}
+
+.code-block-container pre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff79c6, #bd93f9, #8be9fd, #50fa7b, #f1fa8c, #ffb86c, #ff5555);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+  z-index: 1;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.code-block-container code {
+  color: #f8f8f2;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-feature-settings: "liga" 1, "calt" 1, "ss01" 1, "ss02" 1, "ss03" 1, "zero" 1;
+  letter-spacing: -0.01em;
+}
+
+/* Dracula theme syntax highlighting classes */
+.code-block-container .token.comment,
+.code-block-container .token.prolog,
+.code-block-container .token.doctype,
+.code-block-container .token.cdata {
+  color: #6272a4; /* Dracula comment */
+}
+
+.code-block-container .token.punctuation {
+  color: #f8f8f2; /* Dracula foreground */
+}
+
+.code-block-container .token.property,
+.code-block-container .token.tag,
+.code-block-container .token.constant,
+.code-block-container .token.symbol,
+.code-block-container .token.deleted {
+  color: #ff79c6; /* Dracula pink */
+}
+
+.code-block-container .token.boolean,
+.code-block-container .token.number {
+  color: #bd93f9; /* Dracula purple */
+}
+
+.code-block-container .token.selector,
+.code-block-container .token.attr-name,
+.code-block-container .token.string,
+.code-block-container .token.char,
+.code-block-container .token.builtin,
+.code-block-container .token.inserted {
+  color: #50fa7b; /* Dracula green */
+}
+
+.code-block-container .token.operator,
+.code-block-container .token.entity,
+.code-block-container .token.url,
+.code-block-container .language-css .token.string,
+.code-block-container .style .token.string {
+  color: #f1fa8c; /* Dracula yellow */
+}
+
+.code-block-container .token.atrule,
+.code-block-container .token.attr-value,
+.code-block-container .token.keyword {
+  color: #ff79c6; /* Dracula pink */
+}
+
+.code-block-container .token.function,
+.code-block-container .token.class-name {
+  color: #8be9fd; /* Dracula cyan */
+}
+
+.code-block-container .token.regex,
+.code-block-container .token.important,
+.code-block-container .token.variable {
+  color: #f1fa8c; /* Dracula yellow */
+}
+
+.code-block-container .token.important,
+.code-block-container .token.bold {
+  font-weight: bold;
+}
+
+.code-block-container .token.italic {
+  font-style: italic;
+}
+/* Add these to your existing globals.css */
+
+/* Ultra-smooth transitions */
+.page-transition-wrapper {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Cosmic background effect */
+.cosmic-background {
+  position: fixed;
+  inset: 0;
+  z-index: -100;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.05), transparent 70%);
+  opacity: 0.5;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.cosmic-background::before,
+.cosmic-background::after {
+  content: "";
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05) 40%, transparent 70%);
+  filter: blur(60px);
+  animation: cosmic-float 20s infinite alternate ease-in-out;
+  opacity: 0.5;
+}
+
+.cosmic-background::before {
+  top: -20vmax;
+  left: -10vmax;
+  animation-delay: 0s;
+}
+
+.cosmic-background::after {
+  bottom: -20vmax;
+  right: -10vmax;
+  animation-delay: 10s;
+}
+@media (max-width: 768px) {
+  .code-block-container {
+    white-space: pre;
+    overflow-x: scroll;
+  }
+}
+@keyframes cosmic-float {
+  0% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(10vmax, 10vmax) scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+/* Energy grid background */
+.energy-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -99;
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.2;
+  pointer-events: none;
+  animation: grid-fade 8s infinite alternate ease-in-out;
+}
+
+@keyframes grid-fade {
+  0% {
+    opacity: 0.1;
+    background-position: 0px 0px;
+  }
+  100% {
+    opacity: 0.3;
+    background-position: 20px 20px;
+  }
+}
+
+/* Particle effect */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px currentColor;
+  filter: blur(1px);
+}
+
+/* Dimensional rift line */
+.rift-line {
+  position: fixed;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.8), transparent);
+  z-index: 9995;
+  opacity: 0;
+  filter: blur(1px);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+  pointer-events: none;
+}
+
+.rift-line.active {
+  animation: dimensionalRiftLine 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes dimensionalRiftLine {
+  0% {
+    opacity: 0;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(20);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(1);
+  }
+}
+
+/* Energy burst effect */
+.energy-burst {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.8), transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 9994;
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.energy-burst.active {
+  animation: energyBurst 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes energyBurst {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  50% {
+    width: 300px;
+    height: 300px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 600px;
+    height: 600px;
+    opacity: 0;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+@keyframes beam-slide {
+  0% { transform: translateX(-30%); }
+  100% { transform: translateX(30%); }
+}
+
+@keyframes beam-slide-delayed {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(50%); }
+}
+
+@keyframes beam-slide-vertical {
+  0% { transform: translateY(-30%); }
+  100% { transform: translateY(30%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-10px) translateX(10px); }
+  50% { transform: translateY(0) translateX(20px); }
+  75% { transform: translateY(10px) translateX(10px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes pulse-slower {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+}
+
+/* Glow cursor effect */
+.glow-cursor {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(134, 239, 172, 0.15), transparent 70%);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+/* Particle animations */
+.particle-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: float linear infinite;
+}
+
+/* Energy field */
+.energy-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Animation utility classes */
+.animate-beam-slide {
+  animation: beam-slide 8s linear infinite;
+}
+
+.animate-beam-slide-delayed {
+  animation: beam-slide 12s linear infinite;
+}
+
+.animate-beam-slide-vertical {
+  animation: beam-slide-vertical 10s linear infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 20s ease-in-out infinite;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite linear;
+}
+
+/* Add these to your existing globals.css */
+
+.energy-field {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.particle-container {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(1px);
+  box-shadow: 0 0 5px rgba(134, 239, 172, 0.7);
+  animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(calc(var(--random-x, 0) * 50px));
+    opacity: 0;
+  }
+}
+
+.with-ambient-background {
+  position: relative;
+  z-index: 1;
+}
+/* Thêm vào cuối file */
+
+/* Perspective classes */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Holographic scan line animation */
+@keyframes scan-line {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
+/* Digital glitch effect */
+.glitch-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+  0%, 100% { opacity: 0.05; }
+  50% { opacity: 0.1; }
+  25%, 75% { opacity: 0.05; transform: translateX(1px); }
+}
+
+/* Data stream animation */
+@keyframes data-stream {
+  0% {
+    transform: translateY(-100%) scaleY(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.5;
+  }
+  95% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(100%) scaleY(1);
+    opacity: 0;
+  }
+}
+
+/* 3D floating animation */
+@keyframes float-3d {
+  0%, 100% {
+    transform: translateZ(var(--depth)) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+  }
+  25% {
+    transform: translateZ(calc(var(--depth) + 50px)) rotateX(calc(var(--rotateX) + 5deg)) rotateY(calc(var(--rotateY) - 5deg));
+  }
+  50% {
+    transform: translateZ(var(--depth)) rotateX(calc(var(--rotateX) + 10deg)) rotateY(calc(var(--rotateY) + 10deg));
+  }
+  75% {
+    transform: translateZ(calc(var(--depth) - 50px)) rotateX(calc(var(--rotateX) - 5deg)) rotateY(calc(var(--rotateY) + 5deg));
+  }
+}
+
+/* Pulse animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
+}
+
+@keyframes pulse-slower {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.1); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 12s ease-in-out infinite;
+}
+
+/* Float animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-15px) translateX(15px); }
+  50% { transform: translateY(0) translateX(30px); }
+  75% { transform: translateY(15px) translateX(15px); }
+}
+
+.animate-float {
+  animation: float 10s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 20s ease-in-out infinite;
+}
+
+/* Beam slide animations */
+@keyframes beam-slide {
+  0% { transform: translateX(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes beam-slide-delayed {
+  0% { transform: translateX(-100%); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes beam-slide-vertical {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.animate-beam-slide {
+  animation: beam-slide 15s linear infinite;
+}
+
+.animate-beam-slide-delayed {
+  animation: beam-slide-delayed 18s linear infinite 3s;
+}
+
+.animate-beam-slide-vertical {
+  animation: beam-slide-vertical 20s linear infinite 5s;
+}
+
+/* Twinkle animation for stars */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Particle animation */
+.particle-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: particle-float linear infinite;
+}
+
+/* ... existing code ... */
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(var(--random-x, 20px));
+    opacity: 0;
+  }
+}
+
+/* Backface visibility for 3D card effects */
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* 3D Card hover effects */
+.card-3d {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(134, 239, 172, 0.2);
+}
+
+/* Holographic glow effects */
+.holographic-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.holographic-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(134, 239, 172, 0.1) 50%,
+    transparent 75%
+  );
+  background-size: 200% 200%;
+  animation: holographic-shift 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes holographic-shift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+/* Energy beam effects */
+.energy-beam {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(134, 239, 172, 0.5),
+    rgba(134, 239, 172, 0.8),
+    rgba(134, 239, 172, 0.5),
+    transparent
+  );
+  filter: blur(1px);
+  opacity: 0;
+  transform-origin: left center;
+}
+
+.energy-beam.active {
+  animation: energy-beam-pulse 1s ease-out forwards;
+}
+
+@keyframes energy-beam-pulse {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+/* Digital rain effect */
+.digital-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.digital-rain-column {
+  position: absolute;
+  top: -100px;
+  width: 1px;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(134, 239, 172, 0.5),
+    transparent
+  );
+  filter: blur(1px);
+}
+
+/* 3D depth layers */
+.depth-layer-1 {
+  transform: translateZ(50px);
+}
+
+.depth-layer-2 {
+  transform: translateZ(100px);
+}
+
+.depth-layer-3 {
+  transform: translateZ(150px);
+}
+
+/* Cyber grid */
+.cyber-grid {
+  background-image: 
+    linear-gradient(to right, rgba(134, 239, 172, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(134, 239, 172, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+  transform: perspective(1000px) rotateX(60deg) scale(2);
+  transform-origin: center bottom;
+  opacity: 0.2;
+}
+
+/* Neon glow text */
+.neon-glow {
+  text-shadow: 
+    0 0 5px rgba(134, 239, 172, 0.5),
+    0 0 10px rgba(134, 239, 172, 0.3),
+    0 0 15px rgba(134, 239, 172, 0.2);
+  animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: 
+      0 0 5px rgba(134, 239, 172, 0.5),
+      0 0 10px rgba(134, 239, 172, 0.3),
+      0 0 15px rgba(134, 239, 172, 0.2);
+  }
+  to {
+    text-shadow: 
+      0 0 10px rgba(134, 239, 172, 0.7),
+      0 0 20px rgba(134, 239, 172, 0.5),
+      0 0 30px rgba(134, 239, 172, 0.3);
+  }
+}
+
+/* Quantum particles */
+.quantum-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(134, 239, 172, 0.8);
+  filter: blur(1px);
+  box-shadow: 0 0 10px rgba(134, 239, 172, 0.8);
+  opacity: 0;
+}
+
+.quantum-particle.active {
+  animation: quantum-burst 1.5s ease-out forwards;
+}
+
+@keyframes quantum-burst {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Holographic interface elements */
+.holo-element {
+  border: 1px solid rgba(134, 239, 172, 0.3);
+  background: rgba(0, 10, 5, 0.2);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 20px rgba(134, 239, 172, 0.1);
+  transition: all 0.3s ease;
+}
+
+.holo-element:hover {
+  border-color: rgba(134, 239, 172, 0.6);
+  box-shadow: 0 0 30px rgba(134, 239, 172, 0.2);
+}
+
+/* Energy field pulse */
+.energy-field-pulse {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(134, 239, 172, 0.3);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.energy-field-pulse.active {
+  animation: field-pulse 2s cubic-bezier(0, 0.55, 0.45, 1) forwards;
+}
+
+@keyframes field-pulse {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+    border-width: 10px;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+/* Glitch text effect */
+.glitch-text {
+  position: relative;
+  animation: glitch-text 3s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-text::before {
+  animation: glitch-text-before 3s infinite;
+  color: #0ff;
+  z-index: -1;
+}
+
+.glitch-text::after {
+  animation: glitch-text-after 2s infinite;
+  color: #f0f;
+  z-index: -2;
+}
+
+@keyframes glitch-text {
+  0%, 100% { transform: none; opacity: 1; }
+  7% { transform: skew(-0.5deg, -0.9deg); opacity: 0.75; }
+  10% { transform: none; opacity: 1; }
+  27% { transform: none; opacity: 1; }
+  30% { transform: skew(0.8deg, -0.1deg); opacity: 0.75; }
+  35% { transform: none; opacity: 1; }
+  52% { transform: none; opacity: 1; }
+  55% { transform: skew(-1deg, 0.2deg); opacity: 0.75; }
+  50% { transform: none; opacity: 1; }
+  72% { transform: none; opacity: 1; }
+  75% { transform: skew(0.4deg, 1deg); opacity: 0.75; }
+  80% { transform: none; opacity: 1; }
+  100% { transform: none; opacity: 1; }
+}
+
+@keyframes glitch-text-before {
+  0% { transform: none; opacity: 0.5; }
+  7% { transform: translate(-2px, -3px); opacity: 0.75; }
+  10% { transform: none; opacity: 0.5; }
+  27% { transform: none; opacity: 0.5; }
+  30% { transform: translate(-5px, -2px); opacity: 0.75; }
+  35% { transform: none; opacity: 0.5; }
+  52% { transform: none; opacity: 0.5; }
+  55% { transform: translate(-5px, -1px); opacity: 0.75; }
+  50% { transform: none; opacity: 0.5; }
+  72% { transform: none; opacity: 0.5; }
+  75% { transform: translate(-2px, -6px); opacity: 0.75; }
+  80% { transform: none; opacity: 0.5; }
+  100% { transform: none; opacity: 0.5; }
+}
+
+@keyframes glitch-text-after {
+  0% { transform: none; opacity: 0.5; }
+  7% { transform: translate(2px, 3px); opacity: 0.75; }
+  10% { transform: none; opacity: 0.5; }
+  27% { transform: none; opacity: 0.5; }
+  30% { transform: translate(5px, 2px); opacity: 0.75; }
+  35% { transform: none; opacity: 0.5; }
+  52% { transform: none; opacity: 0.5; }
+  55% { transform: translate(5px, 1px); opacity: 0.75; }
+  50% { transform: none; opacity: 0.5; }
+  72% { transform: none; opacity: 0.5; }
+  75% { transform: translate(2px, 6px); opacity: 0.75; }
+  80% { transform: none; opacity: 0.5; }
+  100% { transform: none; opacity: 0.5; }
+}
