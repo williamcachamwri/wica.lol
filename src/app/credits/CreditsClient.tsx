@@ -428,6 +428,89 @@ export default function CreditsPage() {
           </motion.p>
         </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mb-12 p-6 rounded-lg border border-green-300/20 bg-zinc-900/40 backdrop-blur-sm"
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <motion.div 
+              className="w-16 h-16 rounded-full overflow-hidden border-2 border-green-300/30 flex-shrink-0"
+              whileHover={{ scale: 1.1, borderColor: "rgba(52, 211, 153, 0.5)" }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <Image 
+                src="https://avatars.githubusercontent.com/u/59052194?v=4"
+                alt="Karan's avatar"
+                width={64}
+                height={64}
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+            
+            <div className="flex-1">
+              <motion.h3 
+                className="text-xl font-bold text-white mb-1 flex items-center gap-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                Karan
+                <motion.span 
+                  className="inline-block text-green-300 text-sm px-2 py-0.5 rounded-full border border-green-300/30 bg-green-300/10"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.7, type: "spring" }}
+                >
+                  Inspiration
+                </motion.span>
+              </motion.h3>
+              
+              <motion.p 
+                className="text-zinc-400 mb-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.9 }}
+                transition={{ delay: 0.6 }}
+              >
+                Original portfolio design that inspired this project. While this site has been completely redesigned and modified, the initial concept came from Karan's work.
+              </motion.p>
+              
+              <motion.a
+                href="https://github.com/puang59/puang"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-green-300 hover:text-green-200 transition-colors"
+                whileHover={{ x: 5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                Original Repository
+              </motion.a>
+            </div>
+            
+            <motion.div
+              className="hidden md:block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
+            >
+              <motion.div 
+                className="px-4 py-2 rounded-full bg-green-300/10 border border-green-300/20 text-green-300 text-sm"
+                whileHover={{ 
+                  y: -5, 
+                  boxShadow: "0 10px 25px -5px rgba(52, 211, 153, 0.3)" 
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                @puang59
+              </motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Enhanced Category filters with improved animations */}
         <motion.div 
           className="flex flex-wrap gap-3 mb-12"
