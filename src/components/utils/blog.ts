@@ -4,6 +4,7 @@ export type Metadata = {
   title: string;
   description: string;
   date: string;
+  discussionId?: string;
 };
 
 export type FrontmatterParseResult = {
@@ -25,7 +26,7 @@ export const fetchBlogPosts = cache(async (): Promise<MDXFileData[]> => {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
         },
-        next: { revalidate: 60 } // Revalidate mỗi 60 giây
+        next: { revalidate: 60 }
       }
     );
 

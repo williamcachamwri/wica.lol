@@ -1,0 +1,243 @@
+.customGiscusContainer {
+    --color-prettylights-syntax-comment: #8b949e;
+    --color-prettylights-syntax-constant: #79c0ff;
+    --color-prettylights-syntax-entity: #d2a8ff;
+    --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+    --color-prettylights-syntax-entity-tag: #7ee787;
+    --color-prettylights-syntax-keyword: #ff7b72;
+    --color-prettylights-syntax-string: #a5d6ff;
+    --color-prettylights-syntax-variable: #ffa657;
+    --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+    --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+    --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+    --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+    --color-prettylights-syntax-carriage-return-bg: #b62324;
+    --color-prettylights-syntax-string-regexp: #7ee787;
+    --color-prettylights-syntax-markup-list: #f2cc60;
+    --color-prettylights-syntax-markup-heading: #1f6feb;
+    --color-prettylights-syntax-markup-italic: #c9d1d9;
+    --color-prettylights-syntax-markup-bold: #c9d1d9;
+    --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+    --color-prettylights-syntax-markup-deleted-bg: #67060c;
+    --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+    --color-prettylights-syntax-markup-inserted-bg: #033a16;
+    --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+    --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+    --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+    --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+    --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+    --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
+    --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
+    --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+    --color-fg-default: #e2e8f0;
+    --color-fg-muted: #8b949e;
+    --color-fg-subtle: #6e7681;
+    --color-canvas-default: transparent;
+    --color-canvas-subtle: rgba(10, 10, 10, 0.1);
+    --color-border-default: #30363d;
+    --color-border-muted: #21262d;
+    --color-neutral-muted: rgba(110, 118, 129, 0.4);
+    --color-accent-fg: #4ade80;
+    --color-accent-emphasis: #34d399;
+    --color-attention-subtle: rgba(187, 128, 9, 0.15);
+    --color-danger-fg: #f85149;
+    
+    /* Add new variables */
+    --glow-color: rgba(52, 211, 153, 0.3);
+    --glow-spread: 15px;
+    --border-glow: 0 0 var(--glow-spread) var(--glow-color);
+    --text-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+    
+    /* Padding and margin */
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    
+    /* Background effects */
+    background: rgba(13, 13, 13, 0.4);
+    backdrop-filter: blur(10px);
+    
+    /* Border and border radius */
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    border-radius: 1rem;
+    
+    /* Shadow effects */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 
+                inset 0 0 30px rgba(52, 211, 153, 0.05);
+    
+    /* Transition effects */
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  
+  .customGiscusContainer:hover {
+    border-color: rgba(52, 211, 153, 0.4);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 
+                inset 0 0 40px rgba(52, 211, 153, 0.1),
+                var(--border-glow);
+    transform: translateY(-2px);
+  }
+  
+  /* Custom iframe - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus-frame) {
+    border: none !important;
+    width: 100% !important;
+    background-color: transparent !important;
+    transition: opacity 0.5s ease;
+    min-height: 300px !important;
+  }
+  
+  /* Custom comment button - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus-button) {
+    background-color: var(--color-accent-emphasis) !important;
+    border-radius: 0.375rem !important;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1) !important;
+    border: 1px solid rgba(52, 211, 153, 0.3) !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1.25rem !important;
+    text-shadow: none !important;
+  }
+  
+  .customGiscusContainer :global(.giscus-button:hover) {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 15px -3px rgba(52, 211, 153, 0.3) !important;
+    background-color: #4ade80 !important;
+  }
+  
+  /* Custom avatar - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus .avatar) {
+    border-radius: 50% !important;
+    border: 2px solid rgba(52, 211, 153, 0.3) !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .customGiscusContainer :global(.giscus .avatar:hover) {
+    transform: scale(1.1) !important;
+    border-color: rgba(52, 211, 153, 0.6) !important;
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.3) !important;
+  }
+  
+  /* Custom input - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus .form-control) {
+    background-color: rgba(15, 15, 15, 0.6) !important;
+    border: 1px solid rgba(52, 211, 153, 0.2) !important;
+    border-radius: 0.5rem !important;
+    color: #e2e8f0 !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .customGiscusContainer :global(.giscus .form-control:focus) {
+    border-color: rgba(52, 211, 153, 0.5) !important;
+    box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.2) !important;
+    background-color: rgba(20, 20, 20, 0.8) !important;
+  }
+  
+  /* Custom comment - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus .comment) {
+    background-color: rgba(20, 20, 20, 0.4) !important;
+    border: 1px solid rgba(52, 211, 153, 0.1) !important;
+    border-radius: 0.75rem !important;
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .customGiscusContainer :global(.giscus .comment:hover) {
+    border-color: rgba(52, 211, 153, 0.3) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 5px rgba(52, 211, 153, 0.1) !important;
+    transform: translateY(-2px) !important;
+  }
+  
+  /* Custom username - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus .author) {
+    color: #4ade80 !important;
+    font-weight: 600 !important;
+    text-shadow: var(--text-shadow) !important;
+  }
+  
+  /* Custom markdown - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus .markdown) {
+    color: #e2e8f0 !important;
+    line-height: 1.6 !important;
+  }
+  
+  .customGiscusContainer :global(.giscus .markdown a) {
+    color: #4ade80 !important;
+    text-decoration: none !important;
+    border-bottom: 1px dashed rgba(52, 211, 153, 0.4) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .customGiscusContainer :global(.giscus .markdown a:hover) {
+    color: #34d399 !important;
+    border-bottom: 1px solid rgba(52, 211, 153, 0.8) !important;
+    text-shadow: var(--text-shadow) !important;
+  }
+  
+  /* Custom code blocks - Fixed by wrapping in a local class */
+  .customGiscusContainer :global(.giscus .markdown code) {
+    background-color: rgba(30, 30, 30, 0.6) !important;
+    border-radius: 0.25rem !important;
+    padding: 0.2rem 0.4rem !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    border: 1px solid rgba(52, 211, 153, 0.1) !important;
+  }
+  
+  .customGiscusContainer :global(.giscus .markdown pre) {
+    background-color: rgba(20, 20, 20, 0.6) !important;
+    border-radius: 0.5rem !important;
+    border: 1px solid rgba(52, 211, 153, 0.1) !important;
+  }
+  
+  /* Loading effect */
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+  
+  .loadingDot {
+    width: 8px;
+    height: 8px;
+    margin: 0 6px;
+    border-radius: 50%;
+    background-color: rgba(52, 211, 153, 0.6);
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+  
+  .loadingDot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .loadingDot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(0.5);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+  
+  /* Glow effect for container */
+  .glowEffect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1rem;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 50%, rgba(52, 211, 153, 0.15), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .customGiscusContainer:hover .glowEffect {
+    opacity: 1;
+  }

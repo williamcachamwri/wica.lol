@@ -95,7 +95,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
         />
         
         <Suspense fallback={<BlogPostSkeleton />}>
-          <BlogPostClient>
+          <BlogPostClient slug={post.slug}>
             <section className="max-w-4xl mx-auto px-6 font-mono text-md mt-5 p-8 relative">
               <div className="mb-8">
                 <BackButton />

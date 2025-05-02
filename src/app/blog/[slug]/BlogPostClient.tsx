@@ -3,8 +3,15 @@ import TransitionWrapper from "~/components/utils/TransitionWrapper"
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import GitHubComments from "~/components/GitHubComments";
 
-export default function BlogPostClient({ children }: { children: React.ReactNode }) {
+export default function BlogPostClient({ 
+  children, 
+  slug 
+}: { 
+  children: React.ReactNode;
+  slug: string;
+}) {
   const [readingProgress, setReadingProgress] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
@@ -47,6 +54,17 @@ export default function BlogPostClient({ children }: { children: React.ReactNode
       
       {/* Main content */}
       {children}
+      
+      {/* GitHub Comments Section */}
+      <section className="max-w-4xl mx-auto px-6 font-mono">
+        <GitHubComments
+          repositoryOwner="williamcachamwri"
+          repositoryName="blog-data"
+          repositoryId="R_kgDOOYrY-w"
+          categoryId="DIC_kwDOOYrY-84Cpsfz"
+          slug={slug}
+        />
+      </section>
       
       {/* Beautiful Thank You Footnote as Footer */}
       <footer className="max-w-4xl mx-auto px-6 font-mono">
