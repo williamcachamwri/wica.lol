@@ -28,6 +28,7 @@
     "framer-motion": "^12.6.5",
     "gray-matter": "^4.0.3",
     "i": "^0.3.7",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.488.0",
     "mermaid": "^11.6.0",
     "nanoid": "^5.1.5",

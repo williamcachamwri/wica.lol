@@ -444,7 +444,7 @@ export default function PhotosClient() {
   return (
     <main 
       ref={mainRef} 
-      className="relative min-h-screen text-white p-8 md:p-16 lg:p-24 max-w-4xl mx-auto overflow-hidden"
+      className="relative min-h-screen text-white p-8 md:p-16 lg:p-24 max-w-7xl mx-auto overflow-hidden"
     >
       {/* Enhanced cosmic background elements */}
       <div className="fixed inset-0 -z-10 bg-black pointer-events-none">

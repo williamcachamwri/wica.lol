@@ -98,9 +98,14 @@ const HobbyTag = memo(({
         boxShadow: isHovered ? `0 0 15px ${hobby.color}40` : 'none',
       }}
       whileHover={{ 
-        scale: 1.08,
-        y: -3,
-        transition: { type: "spring", stiffness: 400, damping: 10 }
+        scale: 1.05,
+        y: -2,
+        transition: { 
+          type: "spring", 
+          stiffness: 300,
+          damping: 15,
+          mass: 0.8
+        }
       }}
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
@@ -140,12 +145,12 @@ const HobbyTag = memo(({
       <motion.span 
         className="mr-2 relative"
         animate={isHovered ? {
-          scale: [1, 1.3, 1],
-          rotate: [0, 10, -10, 0],
-          y: [0, -3, 0]
+          scale: [1, 1.2, 1],
+          rotate: [0, 5, -5, 0],
+          y: [0, -2, 0]
         } : {}}
         transition={{ 
-          duration: 0.6,
+          duration: 0.8,
           ease: "easeInOut"
         }}
       >
@@ -155,11 +160,11 @@ const HobbyTag = memo(({
             className="absolute inset-0 rounded-full -z-10"
             initial={{ opacity: 0 }}
             animate={{ 
-              opacity: [0.3, 0.8, 0.3],
-              scale: [0.8, 1.5, 0.8]
+              opacity: [0.3, 0.7, 0.3],
+              scale: [0.8, 1.3, 0.8]
             }}
             transition={{ 
-              duration: 1.5, 
+              duration: 1.8,
               repeat: Infinity,
               repeatType: "reverse"
             }}
@@ -172,19 +177,86 @@ const HobbyTag = memo(({
         {hobby.icon}
       </motion.span>
 
-      {/* Text with animation */}
+      {/* Text with animation - CHỈ GIỮ LẠI HIỆU ỨNG MỚI */}
       <motion.span 
-        className="text-sm font-medium tracking-wide"
+        className="text-sm font-medium relative overflow-hidden"
         style={{ 
           color: isHovered ? hobby.color : '#e4e4e7',
-          textShadow: isHovered ? `0 0 10px ${hobby.color}80` : 'none'
         }}
-        animate={isHovered ? {
-          letterSpacing: "0.05em"
-        } : {}}
-        transition={{ duration: 0.3 }}
       >
-        {hobby.name}
+        {/* Text glow effect */}
+        {isHovered && (
+          <motion.span
+            className="absolute inset-0 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{
+              textShadow: `0 0 8px ${hobby.color}80`,
+            }}
+          />
+        )}
+        
+        {/* Text reveal effect */}
+        <motion.span
+          className="relative inline-block"
+          initial={{ y: 0 }}
+          animate={isHovered ? {
+            y: [-20, 0],
+            opacity: [0, 1],
+          } : {}}
+          transition={{
+            duration: 0.3,
+            ease: "easeOut"
+          }}
+        >
+          {hobby.name.split('').map((char, i) => (
+            <motion.span
+              key={`${hobby.id}-char-${i}`}
+              className="inline-block"
+              initial={{ opacity: 1 }}
+              animate={isHovered ? {
+                y: [10, 0],
+                opacity: [0, 1],
+                scale: [0.8, 1],
+                rotateX: [40, 0],
+              } : {}}
+              transition={{
+                duration: 0.4,
+                delay: i * 0.03,
+                ease: [0.19, 1, 0.22, 1]
+              }}
+              style={{
+                display: 'inline-block',
+                transformOrigin: 'bottom',
+                transformStyle: 'preserve-3d',
+                backfaceVisibility: 'hidden',
+              }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </motion.span>
+          ))}
+        </motion.span>
+        
+        {/* Underline effect */}
+        <motion.span
+          className="absolute bottom-0 left-0 h-[1px] w-full"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={isHovered ? {
+            scaleX: 1,
+            opacity: 1,
+          } : {
+            scaleX: 0,
+            opacity: 0,
+          }}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut"
+          }}
+          style={{
+            background: `linear-gradient(to right, ${hobby.color}00, ${hobby.color}, ${hobby.color}00)`,
+            transformOrigin: 'left',
+          }}
+        />
       </motion.span>
 
       {/* Shine effect */}
@@ -196,9 +268,9 @@ const HobbyTag = memo(({
         }}
         animate={isHovered ? { x: ["100%", "-100%"] } : {}}
         transition={{
-          duration: 1,
+          duration: 1.2,
           repeat: Infinity,
-          repeatDelay: 0.3
+          repeatDelay: 0.5
         }}
       />
 
@@ -206,7 +278,7 @@ const HobbyTag = memo(({
       <AnimatePresence>
         {isHovered && (
           <>
-            {[...Array(8)].map((_, i) => (
+            {[...Array(6)].map((_, i) => (
               <motion.div
                 key={`particle-${i}`}
                 className="absolute rounded-full z-0 pointer-events-none"
@@ -217,23 +289,23 @@ const HobbyTag = memo(({
                   y: 0,
                 }}
                 animate={{ 
-                  opacity: [0, 0.9, 0],
-                  scale: [0, Math.random() * 0.6 + 0.4, 0],
-                  x: [0, (Math.random() - 0.5) * 60],
-                  y: [0, (Math.random() - 0.5) * 60],
+                  opacity: [0, 0.7, 0],
+                  scale: [0, Math.random() * 0.5 + 0.3, 0],
+                  x: [0, (Math.random() - 0.5) * 40],
+                  y: [0, (Math.random() - 0.5) * 40],
                 }}
                 exit={{ opacity: 0, scale: 0 }}
                 transition={{ 
-                  duration: 0.8 + Math.random() * 0.7,
+                  duration: 0.8 + Math.random() * 0.5,
                   ease: "easeOut"
                 }}
                 style={{
-                  left: `${50 + (Math.random() - 0.5) * 30}%`,
-                  top: `${50 + (Math.random() - 0.5) * 30}%`,
-                  width: `${Math.random() * 4 + 2}px`,
-                  height: `${Math.random() * 4 + 2}px`,
+                  left: `${50 + (Math.random() - 0.5) * 20}%`,
+                  top: `${50 + (Math.random() - 0.5) * 20}%`,
+                  width: `${Math.random() * 3 + 1}px`,
+                  height: `${Math.random() * 3 + 1}px`,
                   backgroundColor: hobby.color,
-                  boxShadow: `0 0 ${Math.random() * 8 + 4}px ${hobby.color}`
+                  boxShadow: `0 0 ${Math.random() * 6 + 2}px ${hobby.color}`
                 }}
               />
             ))}
@@ -246,14 +318,14 @@ const HobbyTag = memo(({
         className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100"
         style={{ 
           border: `1px solid ${hobby.color}`,
-          scale: 1.02
+          scale: 1.01
         }}
         animate={isHovered ? { 
-          opacity: [0, 0.7, 0],
-          scale: [1, 1.1, 1]
+          opacity: [0, 0.5, 0],
+          scale: [1, 1.05, 1]
         } : {}}
         transition={{ 
-          duration: 1.5, 
+          duration: 1.8,
           repeat: Infinity,
           repeatType: "loop"
         }}
