@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoadingScreen({ children }: { children: React.ReactNode }) {
@@ -10,28 +10,28 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
   const [showStartButton, setShowStartButton] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [showMusicControl, setShowMusicControl] = useState(false);
-  // Thêm state cho hiệu ứng particles
   const [showParticles, setShowParticles] = useState(false);
 
-  // Loading progress handler
+  // Tối ưu loading progress - giảm thời gian chờ xuống 2.5s thay vì 4.5s
   useEffect(() => {
+    // Tăng tốc độ tăng progress
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const increment = (100 - prev) * 0.05;
+        const increment = (100 - prev) * 0.1; // Tăng tốc độ từ 0.05 lên 0.1
         const newProgress = prev + increment;
         return newProgress > 99 ? 99 : newProgress;
       });
-    }, 100);
+    }, 50); // Giảm interval từ 100ms xuống 50ms
 
+    // Giảm thời gian loading
     const timeout = setTimeout(() => {
       clearInterval(interval);
       setProgress(100);
       setLoading(false);
       setTimeout(() => {
         setShowStartButton(true);
-      }, 800);
-    }, 4500);
+      }, 500); // Giảm từ 800ms xuống 500ms
+    }, 2500); // Giảm từ 4500ms xuống 2500ms
 
     return () => {
       clearInterval(interval);
@@ -39,16 +39,18 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
     };
   }, []);
 
-  // Initialize audio
+  // Lazy load audio để tránh ảnh hưởng đến thời gian tải trang
   useEffect(() => {
-    audioRef.current = new Audio('/music.mp3');
-    audioRef.current.volume = 0.7;
-    audioRef.current.loop = true;
-    
-    // Add event listeners to track audio state
-    if (audioRef.current) {
-      audioRef.current.addEventListener('play', () => setIsMusicPlaying(true));
-      audioRef.current.addEventListener('pause', () => setIsMusicPlaying(false));
+    if (!loading && !audioRef.current) {
+      const audio = new Audio('/music.mp3');
+      audio.volume = 0.7;
+      audio.loop = true;
+      audio.preload = "none"; // Chỉ tải khi cần thiết
+      
+      audio.addEventListener('play', () => setIsMusicPlaying(true));
+      audio.addEventListener('pause', () => setIsMusicPlaying(false));
+      
+      audioRef.current = audio;
     }
     
     return () => {
@@ -58,32 +60,29 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
         audioRef.current.removeEventListener('pause', () => setIsMusicPlaying(false));
       }
     };
-  }, []);
+  }, [loading]);
 
   const handleStart = () => {
-    // Kích hoạt hiệu ứng particles
     setShowParticles(true);
     
-    // Play audio
+    // Chỉ phát nhạc khi audio đã được tải
     if (audioRef.current) {
       audioRef.current.play().catch(err => console.error("Audio playback failed:", err));
-      setShowMusicControl(true);
     }
     
-    // Transition animation
+    // Giảm thời gian chuyển đổi
     setTimeout(() => {
       setShowContent(true);
-      // Tắt hiệu ứng particles sau khi đã chuyển đến nội dung chính
       setTimeout(() => {
         setShowParticles(false);
-      }, 3000);
-    }, 2000);
+      }, 2000); // Giảm từ 3000ms xuống 2000ms
+    }, 1000); // Giảm từ 2000ms xuống 1000ms
   };
 
+  // Sử dụng useMemo để tránh tạo lại mảng particles mỗi khi render
+  const particles = useMemo(() => Array.from({ length: 100 }, (_, i) => i), []); // Giảm từ 150 xuống 100
 
-  // Tạo mảng particles với số lượng lớn để hiệu ứng đẹp hơn
-  const particles = Array.from({ length: 150 }, (_, i) => i);
-
+  // Tối ưu hiệu suất bằng cách chỉ render các phần tử cần thiết
   return (
     <>
       <AnimatePresence>
@@ -91,13 +90,13 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
           <motion.div
             className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50"
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Giảm từ 0.8s xuống 0.5s
           >
             {/* Nâng cấp text Loading... với hiệu ứng chữ hiện đại */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }} // Giảm từ 0.5s xuống 0.3s
               className="relative mb-12"
             >
               <motion.div
@@ -109,8 +108,8 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{
-                      duration: 0.4,
-                      delay: 0.05 * index,
+                      duration: 0.3, // Giảm từ 0.4s xuống 0.3s
+                      delay: 0.03 * index, // Giảm từ 0.05s xuống 0.03s
                       ease: [0.22, 1, 0.36, 1]
                     }}
                     className="inline-block relative"
@@ -136,7 +135,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                 className="h-[2px] bg-gradient-to-r from-transparent via-green-400 to-transparent mt-1"
                 initial={{ width: 0, opacity: 0 }}
                 animate={{ width: "100%", opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+                transition={{ duration: 0.5, delay: 0.4 }} // Giảm từ 0.8s/0.6s xuống 0.5s/0.4s
               />
             </motion.div>
             
@@ -159,7 +158,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                     background: "linear-gradient(90deg, rgba(52, 211, 153, 0.3) 0%, rgba(52, 211, 153, 0.8) 50%, rgba(52, 211, 153, 0.3) 100%)",
                     transform: `scaleX(${progress / 100})` 
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.2 }} // Giảm từ 0.3s xuống 0.2s
                 />
                 
                 {/* Animated shine effect */}
@@ -169,18 +168,18 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                     background: "linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%)",
                     transform: `translateX(${-100 + progress}%)` 
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.2 }} // Giảm từ 0.3s xuống 0.2s
                 />
                 
-                {/* Animated particles inside progress bar */}
-                {Array.from({ length: 10 }).map((_, i) => (
+                {/* Animated particles inside progress bar - giảm số lượng particles */}
+                {progress > 10 && Array.from({ length: 5 }).map((_, i) => ( // Giảm từ 10 xuống 5
                   <motion.div
                     key={`progress-particle-${i}`}
                     className="absolute top-1/2 w-1 h-1 rounded-full bg-green-300/80"
                     style={{ 
                       left: `${(progress - 5) * Math.random()}%`,
                       transform: "translateY(-50%)",
-                      opacity: progress > 10 ? 0.5 + Math.random() * 0.5 : 0
+                      opacity: 0.5 + Math.random() * 0.5
                     }}
                     animate={{
                       y: ["-50%", `${(Math.random() - 0.5) * 150}%`, "-50%"],
@@ -201,7 +200,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                 className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-zinc-400 text-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.3 }} // Giảm từ 0.5s xuống 0.3s
               >
                 <span className="relative">
                   {Math.round(progress)}%
@@ -224,14 +223,14 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
           <motion.div
             className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50"
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Giảm từ 0.8s xuống 0.5s
           >
             {/* Nâng cấp text Welcome với hiệu ứng chữ hiện đại */}
             <motion.div
               className="mb-16 relative"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }} // Giảm từ 0.5s xuống 0.3s
             >
               <div className="flex items-center justify-center relative">
                 {Array.from("Welcome").map((letter, index) => (
@@ -251,10 +250,10 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                       scale: 1
                     }}
                     transition={{ 
-                      duration: 0.8, 
-                      delay: 0.1 * index,
+                      duration: 0.6, // Giảm từ 0.8s xuống 0.6s
+                      delay: 0.08 * index, // Giảm từ 0.1s xuống 0.08s
                       type: "spring",
-                      stiffness: 100
+                      stiffness: 120 // Tăng từ 100 lên 120 để animation nhanh hơn
                     }}
                   >
                     {/* Glow effect behind letter */}
@@ -270,14 +269,14 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                       }}
                       transition={{ 
                         duration: 2,
-                        delay: 0.1 * index + 0.3,
+                        delay: 0.08 * index + 0.2, // Giảm từ 0.1s + 0.3s xuống 0.08s + 0.2s
                         repeat: Infinity,
                         repeatType: "reverse"
                       }}
                     />
                     
-                    {/* Floating particles around each letter */}
-                    {Array.from({ length: 3 }).map((_, i) => (
+                    {/* Floating particles around each letter - giảm số lượng particles */}
+                    {Array.from({ length: 2 }).map((_, i) => ( // Giảm từ 3 xuống 2
                       <motion.div
                         key={`letter-particle-${index}-${i}`}
                         className="absolute w-1 h-1 rounded-full bg-green-300"
@@ -295,7 +294,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                         transition={{
                           duration: 1.5 + Math.random(),
                           repeat: Infinity,
-                          delay: 0.1 * index + i * 0.2
+                          delay: 0.08 * index + i * 0.2 // Giảm từ 0.1s xuống 0.08s
                         }}
                       />
                     ))}
@@ -329,8 +328,8 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                 initial={{ width: 0, opacity: 0 }}
                 animate={{ width: "100%", opacity: 1 }}
                 transition={{ 
-                  duration: 1.2, 
-                  delay: 0.8,
+                  duration: 0.8, // Giảm từ 1.2s xuống 0.8s
+                  delay: 0.5, // Giảm từ 0.8s xuống 0.5s
                   ease: [0.22, 1, 0.36, 1]
                 }}
               />
@@ -348,9 +347,9 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                   }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ 
-                    duration: 0.4, 
+                    duration: 0.3, // Giảm từ 0.4s xuống 0.3s
                     type: "spring",
-                    stiffness: 300,
+                    stiffness: 350, // Tăng từ 300 lên 350
                     damping: 15
                   }}
                   className="relative px-12 py-5 bg-transparent text-green-300 font-bold rounded-full overflow-hidden group"
@@ -376,9 +375,9 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                     }}
                   />
                   
-                  {/* Animated particles inside button */}
+                  {/* Animated particles inside button - giảm số lượng particles */}
                   <div className="absolute inset-0 overflow-hidden rounded-full">
-                    {Array.from({ length: 20 }).map((_, i) => (
+                    {Array.from({ length: 10 }).map((_, i) => ( // Giảm từ 20 xuống 10
                       <motion.div
                         key={`btn-particle-${i}`}
                         className="absolute rounded-full bg-green-300"
@@ -503,30 +502,6 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
                       START
                     </motion.span>
                   </div>
-                  
-                  {/* Hover indicator dots */}
-                  <motion.div
-                    className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    {[0, 1, 2].map((i) => (
-                      <motion.div
-                        key={`dot-${i}`}
-                        className="w-1 h-1 rounded-full bg-green-400/50"
-                        animate={{
-                          opacity: [0.3, 1, 0.3],
-                          scale: [0.8, 1.2, 0.8]
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          delay: i * 0.3
-                        }}
-                      />
-                    ))}
-                  </motion.div>
                 </motion.button>
               )}
             </AnimatePresence>
@@ -534,102 +509,37 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
         )}
       </AnimatePresence>
 
-      {/* Hiệu ứng particles bắn từ hai bên vào giữa */}
-      <AnimatePresence>
-        {showParticles && (
-          <div className="fixed inset-0 pointer-events-none z-[60] overflow-hidden">
-            {particles.map((i) => {
-              // Xác định particle bắn từ bên trái hay bên phải
-              const fromLeft = i % 2 === 0;
-              // Random vị trí bắt đầu theo chiều dọc
-              const startY = Math.random() * 100;
-              // Random kích thước particle
-              const size = Math.random() * 6 + 2;
-              // Random độ trễ để tạo hiệu ứng tự nhiên
-              const delay = Math.random() * 0.5;
-              // Random tốc độ di chuyển
-              const duration = Math.random() * 1.5 + 1;
-              // Random màu gradient từ xanh lá
-              const hue = 142 + Math.random() * 30;
-              const saturation = 80 + Math.random() * 20;
-              const lightness = 60 + Math.random() * 20;
-              
-              return (
-                <motion.div
-                  key={`particle-${i}`}
-                  className="absolute rounded-full"
-                  style={{
-                    width: `${size}px`,
-                    height: `${size}px`,
-                    top: `${startY}%`,
-                    left: fromLeft ? "-5%" : "105%",
-                    background: `radial-gradient(circle, hsl(${hue}, ${saturation}%, ${lightness}%) 0%, hsl(${hue}, ${saturation - 10}%, ${lightness - 20}%) 70%, transparent 100%)`,
-                    boxShadow: `0 0 ${size * 2}px hsl(${hue}, ${saturation}%, ${lightness}%)`,
-                    filter: "blur(0.5px)",
-                  }}
-                  initial={{ 
-                    opacity: 0,
-                    scale: 0,
-                    x: 0,
-                    rotate: 0
-                  }}
-                  animate={{ 
-                    opacity: [0, 1, 0.8, 0],
-                    scale: [0, 1.2, 0.8, 0],
-                    x: fromLeft 
-                      ? [0, window.innerWidth * (0.3 + Math.random() * 0.4)] 
-                      : [0, -window.innerWidth * (0.3 + Math.random() * 0.4)],
-                    y: [0, (Math.random() - 0.5) * 200],
-                    rotate: Math.random() * 360
-                  }}
-                  transition={{ 
-                    duration: duration,
-                    delay: delay,
-                    ease: [0.22, 1, 0.36, 1]
-                  }}
-                />
-              );
-            })}
-            
-            {/* Thêm hiệu ứng ánh sáng chính giữa khi particles gặp nhau */}
+      {/* Hiệu ứng particles khi chuyển đổi - chỉ render khi cần thiết */}
+      {showParticles && (
+        <div className="fixed inset-0 pointer-events-none z-40">
+          {particles.map((i) => (
             <motion.div
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full"
+              key={`transition-particle-${i}`}
+              className="absolute rounded-full bg-green-300"
               style={{
-                background: "radial-gradient(circle, rgba(52, 211, 153, 0.8) 0%, rgba(52, 211, 153, 0.2) 50%, transparent 100%)",
-                filter: "blur(30px)",
+                width: `${Math.random() * 4 + 1}px`,
+                height: `${Math.random() * 4 + 1}px`,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                opacity: 0
               }}
-              initial={{ width: 0, height: 0, opacity: 0 }}
-              animate={{ 
-                width: ["0px", "300px", "100px"],
-                height: ["0px", "300px", "100px"],
-                opacity: [0, 0.8, 0]
+              animate={{
+                opacity: [0, 0.8, 0],
+                scale: [0, 1, 0],
+                y: [0, (Math.random() - 0.5) * 100],
+                x: [0, (Math.random() - 0.5) * 100],
               }}
-              transition={{ 
-                duration: 2,
-                delay: 1,
-                ease: "easeOut"
-              }}
-            />
-            
-            {/* Hiệu ứng sóng xung kích */}
-            <motion.div
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-green-300/30"
-              initial={{ width: 0, height: 0, opacity: 0 }}
-              animate={{ 
-                width: ["0px", "100vw"],
-                height: ["0px", "100vh"],
-                opacity: [0, 0.5, 0]
-              }}
-              transition={{ 
-                duration: 2,
-                delay: 1.2,
-                ease: "easeOut"
+              transition={{
+                duration: 1 + Math.random(),
+                repeat: 0,
+                delay: Math.random() * 0.5
               }}
             />
-          </div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      )}
 
+      {/* Nội dung chính */}
       <div className={showContent ? "block" : "hidden"}>
         {children}
       </div>

@@ -12,6 +12,8 @@ const Experience = dynamic(() => import("~/components/Experience"), { ssr: true 
 const Socials = dynamic(() => import("~/components/Socials"), { ssr: true });
 const NowPlaying = dynamic(() => import("~/components/NowPlaying"), { ssr: true });
 const GitCommitHistory = dynamic(() => import("~/components/GitCommitHistory"), { ssr: true });
+const HobbySection = dynamic(() => import("~/components/HobbySection"), { ssr: true });
+const SkillsSection = dynamic(() => import("~/components/SkillsSection"), { ssr: true });
 
 // Define custom mouse tracking interface
 interface MousePosition {
@@ -148,32 +150,7 @@ export default function HomePage() {
             }}
             transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
           />
-          
-          {/* Cosmic dust particles */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={`particle-${i}`}
-                className="absolute w-1 h-1 rounded-full bg-green-300/30"
-                style={{
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  y: [0, Math.random() * 20 - 10],
-                  x: [0, Math.random() * 20 - 10],
-                  opacity: [0, 0.5, 0],
-                  scale: [0.5, 1.5, 0.5]
-                }}
-                transition={{
-                  duration: 2 + Math.random() * 3,
-                  repeat: Infinity,
-                  delay: Math.random() * 5
-                }}
-              />
-            ))}
-          </div>
-          
+                    
           {/* Cosmic energy lines */}
           {[...Array(3)].map((_, i) => (
             <motion.div
@@ -1146,7 +1123,15 @@ export default function HomePage() {
                               <About />
                               </motion.section>
 
-
+                              <motion.section
+                              initial="hidden"
+                              whileInView="visible"
+                              viewport={{ once: true, margin: "-100px" }}
+                              custom={1}
+                              variants={fadeInUpVariants}
+                            >
+                              <HobbySection />
+                              </motion.section>
                             
                             {/* Experience section */}
                             <motion.section
@@ -1168,6 +1153,17 @@ export default function HomePage() {
                             >
                               <Education />
                             </motion.section>
+
+                            {/* Skills section */}
+                              <motion.section
+                              initial="hidden"
+                              whileInView="visible"
+                              viewport={{ once: true, margin: "-100px" }}
+                              custom={1}
+                              variants={fadeInUpVariants}
+                            >
+                              <SkillsSection />
+                              </motion.section>
                             
                             {/* Socials section */}
                             <motion.section

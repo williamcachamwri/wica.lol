@@ -333,6 +333,16 @@ const NavBar = () => {
                   hoveredIcon={hoveredIcon}
                   setHoveredIcon={setHoveredIcon}
                 />
+                                <div className="inline-block h-6 w-px self-stretch bg-zinc-700/50 mx-5"></div>
+
+                                <NavItem 
+                  href="/photos"
+                  icon={{ filled: RiGitRepositoryFill, outline: RiGitRepositoryLine }}
+                  name="photos"
+                  isActive={isActive("/photos")}
+                  hoveredIcon={hoveredIcon}
+                  setHoveredIcon={setHoveredIcon}
+                />
 
 <div className="inline-block h-6 w-px self-stretch bg-zinc-700/50 mx-5"></div>
 

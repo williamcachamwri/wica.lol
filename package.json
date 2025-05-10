@@ -74,5 +74,10 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.39.3"
-  }
+  },
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "@vercel/speed-insights",
+    "core-js"
+  ]
 }

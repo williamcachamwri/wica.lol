@@ -3,7 +3,7 @@
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    domains: ["i.pinimg.com", "avatars.githubusercontent.com", "i.scdn.co", "upload.wikimedia.org", "user-images.githubusercontent.com", "mdxjs.com", "raw.githubusercontent.com", "github.com"],
+    domains: ["i.pinimg.com", "avatars.githubusercontent.com", "i.scdn.co", "upload.wikimedia.org", "user-images.githubusercontent.com", "mdxjs.com", "raw.githubusercontent.com", "github.com", "cdn.jsdelivr.net", "www.svgrepo.com", "images.unsplash.com"],
   },
   typescript: {
     // !! WARN !!
