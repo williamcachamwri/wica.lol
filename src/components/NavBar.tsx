@@ -15,6 +15,7 @@ import {
   RiFileInfoFill,
   RiFileInfoLine
 } from "@remixicon/react";
+import { TbPhoto, TbPhotoFilled } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -337,7 +338,7 @@ const NavBar = () => {
 
                                 <NavItem 
                   href="/photos"
-                  icon={{ filled: RiGitRepositoryFill, outline: RiGitRepositoryLine }}
+                  icon={{ filled: TbPhotoFilled, outline: TbPhoto }}
                   name="photos"
                   isActive={isActive("/photos")}
                   hoveredIcon={hoveredIcon}
