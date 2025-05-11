@@ -237,7 +237,7 @@ export default function BlogStyles() {
         box-shadow: 0 0 10px rgba(134, 239, 172, 0.3);
       }
       
-      /* Code blocks - simplified hover */
+      /* Code blocks - enhanced styling */
       .mdx-content pre {
         margin: 2.5rem 0;
         border-radius: 12px;
@@ -399,52 +399,152 @@ export default function BlogStyles() {
         z-index: 1;
       }
       
-      /* Tables - simplified hover */
+      /* Enhanced Tables - with better styling and hover effects */
       .mdx-content table {
         margin: 2.5rem 0;
         width: 100%;
         border-collapse: separate;
         border-spacing: 0;
         overflow: hidden;
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3), 0 0 10px rgba(134, 239, 172, 0.1);
         position: relative;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         border: 1px solid rgba(134, 239, 172, 0.2);
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
       }
       
       .mdx-content table:hover {
-        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(134, 239, 172, 0.1);
-        border-color: rgba(134, 239, 172, 0.3);
-        transform: translateY(-3px);
+        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(134, 239, 172, 0.2);
+        border-color: rgba(134, 239, 172, 0.4);
+        transform: translateY(-5px) scale(1.01);
+      }
+      
+      /* Table header styling */
+      .mdx-content thead {
+        background: rgba(134, 239, 172, 0.1);
+        position: relative;
+      }
+      
+      .mdx-content thead::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+          rgba(134, 239, 172, 0.1), 
+          rgba(134, 239, 172, 0.6), 
+          rgba(134, 239, 172, 0.1)
+        );
+        z-index: 1;
       }
       
       .mdx-content th {
-        background: rgba(134, 239, 172, 0.1);
         color: #f9fafb;
         font-weight: 600;
         text-align: left;
-        padding: 1rem 1.25rem;
-        border-bottom: 1px solid rgba(134, 239, 172, 0.3);
+        padding: 1.2rem 1.5rem;
         position: relative;
         transition: all 0.3s ease;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+        border-bottom: none;
+        text-shadow: 0 0 10px rgba(134, 239, 172, 0.3);
       }
       
+      .mdx-content th:hover {
+        color: #86efac;
+        background: rgba(134, 239, 172, 0.08);
+      }
+      
+      /* Table cell styling */
       .mdx-content td {
-        padding: 1rem 1.25rem;
+        padding: 1.2rem 1.5rem;
         border-bottom: 1px solid rgba(134, 239, 172, 0.1);
         transition: all 0.3s ease;
         position: relative;
+        color: #d1d5db;
+        font-size: 0.95rem;
       }
       
-      .mdx-content tr {
+      /* Table row hover effect */
+      .mdx-content tbody tr {
         transition: all 0.3s ease;
+        position: relative;
       }
       
-      .mdx-content tr:hover td {
+      .mdx-content tbody tr:hover {
         background: rgba(134, 239, 172, 0.05);
+      }
+      
+      .mdx-content tbody tr:hover td {
         color: #f9fafb;
+      }
+      
+      /* Last row styling */
+      .mdx-content tbody tr:last-child td {
+        border-bottom: none;
+      }
+      
+      /* Alternating row colors */
+      .mdx-content tbody tr:nth-child(even) {
+        background: rgba(134, 239, 172, 0.02);
+      }
+      
+      /* Table cell hover effect */
+      .mdx-content td:hover {
+        background: rgba(134, 239, 172, 0.08);
+      }
+      
+      /* Table caption styling */
+      .mdx-content table caption {
+        margin-bottom: 1rem;
+        font-style: italic;
+        color: rgba(134, 239, 172, 0.7);
+        text-align: center;
+        font-size: 0.9rem;
+      }
+      
+      /* Table border styling */
+      .mdx-content table::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        padding: 1px;
+        background: linear-gradient(
+          135deg, 
+          rgba(134, 239, 172, 0.3) 0%, 
+          rgba(134, 239, 172, 0.1) 50%, 
+          rgba(134, 239, 172, 0.3) 100%
+        );
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+      }
+      
+      .mdx-content table:hover::before {
+        opacity: 1;
+      }
+      
+      /* Table responsive styling */
+      @media (max-width: 768px) {
+        .mdx-content table {
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+        
+        .mdx-content th, 
+        .mdx-content td {
+          padding: 1rem;
+        }
       }
       
       /* Horizontal rule - simplified hover */
@@ -480,7 +580,7 @@ export default function BlogStyles() {
         text-shadow: 0 0 10px rgba(134, 239, 172, 0.5);
       }
       
-      /* Inline code - simplified hover */
+      /* Inline code - enhanced styling */
       .mdx-content code:not(pre code) {
         font-family: 'JetBrains Mono', monospace;
         background: rgba(134, 239, 172, 0.1);
@@ -492,6 +592,7 @@ export default function BlogStyles() {
         transition: all 0.3s ease;
         margin: 0 0.2rem;
         white-space: nowrap;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
       
       .mdx-content code:not(pre code):hover {
