@@ -14,7 +14,7 @@ const NowPlaying = dynamic(() => import("~/components/NowPlaying"), { ssr: true 
 const GitCommitHistory = dynamic(() => import("~/components/GitCommitHistory"), { ssr: true });
 const HobbySection = dynamic(() => import("~/components/HobbySection"), { ssr: true });
 const SkillsSection = dynamic(() => import("~/components/SkillsSection"), { ssr: true });
-
+const LocationSection = dynamic(() => import("~/components/LocationSection"), { ssr: false });
 // Define custom mouse tracking interface
 interface MousePosition {
   x: number;
@@ -1122,6 +1122,16 @@ export default function HomePage() {
                             >
                               <About />
                               </motion.section>
+
+                              <motion.section
+  className="mb-16"
+  initial="hidden"
+  animate="visible"
+  custom={5} // Điều chỉnh số này tùy thuộc vào thứ tự hiển thị
+  variants={fadeInUpVariants}
+>
+  <LocationSection />
+</motion.section>
 
                               <motion.section
                               initial="hidden"
